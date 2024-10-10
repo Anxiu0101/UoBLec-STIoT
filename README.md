@@ -10,6 +10,32 @@
 - Uses ECC (Elliptic Curve Cryptography) certificates for authentication
 - Includes comprehensive logging functionality
 
+## Directory Structure
+
+```shell
+.
+├── Makefile                # Makefile for building the project
+├── README.md               
+├── bin                     # Binary executable files
+├── cert                    # Certificate files
+│   ├── server-cert.pem
+│   └── server-key.pem
+├── include                 # Header files
+│   ├── client.h
+│   ├── server.h
+│   └── util                # Utility Header files
+│       ├── log.h
+│       └── openssl.h
+└── src                     # Source code
+    ├── client
+    │   └── client.c
+    ├── server
+    │   └── server.c
+    └── util
+        ├── log.c
+        └── openssl.c
+```
+
 ## Compilation Instructions
 
 Ensure that the <u>OpenSSL development library</u> is installed on your system. Then, compile the project using the following command:
