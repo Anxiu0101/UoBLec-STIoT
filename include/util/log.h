@@ -12,6 +12,7 @@
 #define LOG_COLOR_CYAN    "\x1b[36m"
 #define LOG_COLOR_RESET   "\x1b[0m"
 
+// Log message
 void log_message(const char* source, const char* color, const char* format, ...);
 
 #define log_server(format, ...) log_message("server", LOG_COLOR_GREEN, format, ##__VA_ARGS__)

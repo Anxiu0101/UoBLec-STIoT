@@ -1,32 +1,17 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include <openssl/ec.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 
-// 客户端配置结构体
-typedef struct {
-    const char* server_ip;
-    int server_port;
-    const char* ca_file;
-} ClientConfig;
+// Initialize client
+SSL_CTX* client_init();
 
-// 初始化客户端
-int client_init(ClientConfig* config);
+// Handle connection to server
+void connect_to_server(SSL *ssl, const char *hostname, int port);
 
-// 连接到服务器
-int client_connect();
+// Release resources
+void cleanup(SSL_CTX *ctx);
 
-// 发送消息
-int client_send_message(const char* message);
-
-// 接收消息
-int client_receive_message(char* buffer, int buffer_size);
-
-// 断开连接
-void client_disconnect();
-
-// 清理客户端资源
-void client_cleanup();
-
-#endif // CLIENT_H
+#endif

@@ -1,26 +1,17 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include <openssl/ec.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 
-// 服务器配置结构体
-typedef struct {
-    int port;
-    const char* cert_file;
-    const char* key_file;
-} ServerConfig;
+// Initialize server
+int server_init(int port);
 
-// 初始化服务器
-int server_init(ServerConfig* config);
+// Handle client connection
+void handle_client(SSL *ssl);
 
-// 启动服务器
-int server_start();
+// Release resources
+void cleanup(SSL_CTX *ctx);
 
-// 停止服务器
-void server_stop();
-
-// 清理服务器资源
-void server_cleanup();
-
-#endif // SERVER_H
+#endif

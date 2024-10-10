@@ -5,6 +5,10 @@
 /cert
 /cert/server.key
 /cert/server.crt
+/cert/server-key.pem
+/cert/server-cert.pem
+
+/archive
 
 .DS_Store
 

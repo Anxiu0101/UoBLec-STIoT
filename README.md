@@ -1,34 +1,67 @@
-# Secure Transfer IoT (C and OpenSSL)
+# SecureTransferIoT(STIoT): Secure Communication Implementation for IoT Devices
 
-This is a simple secure file transfer program using C and OpenSSL. It consists of two parts:
-- A server that listens for connections.
-- A client that connects to the server and sends a message.
+**SecureTransferIoT(STIoT)** is a secure communication project based on OpenSSL, specifically designed for Internet of Things (IoT) devices. This project implements a simple client-server model, utilizing the TLS protocol to ensure secure communications.
 
-## How to compile and run the program
+## Features
 
-1. Make sure you have OpenSSL installed on your system.
-    - You need to initialize the keys and certificates first.
+- Implements TLS-encrypted communication using the OpenSSL library
+- Supports continuous server listening for multiple client connections
+- Clients can input messages from the command line and send them to the server
+- Uses ECC (Elliptic Curve Cryptography) certificates for authentication
+- Includes comprehensive logging functionality
+
+## Compilation Instructions
+
+Ensure that the <u>OpenSSL development library</u> is installed on your system. Then, compile the project using the following command:
+
+```shell
+make build
+```
+
+This will generate two executable files: `server` and `client` in the `bin/` directory.
+
+## Usage
+
+### Server
+
+To start the server, run the following command:
+
+```shell
+./bin/server
+```
+
+Server will listen for connections on port `4433`.
+
+### Client
+
+To connect as a client, run the following command:
+
+```shell
+./bin/client <server_address>
+./bin/client 127.0.0.1 # for example
+```
+
+Replace `<server_address>` with the IP address or hostname of the server.
+
+After connecting, you can input messages to send to the server.
+
+Server will receive messages and print them to the console.
+
+
+## Security Considerations
+
+- This project uses ECC certificates for authentication. Ensure the use of properly signed certificates in real-world deployments.
+    - For the sake of simplicity, certificate authorities are not implemented. In a real-world scenario, you would need to set up a proper certificate authority and use it to sign the server's certificate.
+    - Generate server's private key and self-signed certificate:
     ```shell
-    openssl req -x509 -newkey rsa:4096 -keyout server.key -out server.crt -days 365 -nodes
+    openssl ecparam -genkey -name prime256v1 -out server-key.pem
+    openssl req -new -x509 -key server-key.pem -out server-cert.pem -days 365
     ```
-    - The `server.key` is the private key and the `server.crt` is the public key.
-    - x509 is the certificate format.
-    - rsa:4096 is the key length.
-    - days is the validity period of the certificate.
-    - nodes is the number of nodes in the certificate.
-2. Run `make build` to compile the project.
-3. To start the server, run `./build/server`.
-4. To connect as a client, run `./build/client`.
+- Regularly update the OpenSSL library to receive the latest security patches.
+- In a production environment, consider implementing certificate verification and revocation checking.
 
-## Requirements
+## License & Contributions
 
-- C compiler (gcc)
-- OpenSSL library
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-## TODO
-
-- [ ] 修复 colorized perror 包装
-- [ ] 将加密算法更改为 ECC，签名算法修改 ECDSA，密钥交换改为 ECDH
-- [ ] 命令行封装
-- [ ] 服务连接可配置，使用 toml 配置
-- [ ] 处理服务端为服务端提供消息队列，提高服务端的多链接处理能力。
+Issues and pull requests to improve this project are welcome.

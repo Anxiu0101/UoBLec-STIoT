@@ -6,8 +6,10 @@ SRC_DIR = src
 BIN_DIR = bin
 INCLUDE_DIR = include
 
-SERVER_SRC = $(SRC_DIR)/server/server.c $(SRC_DIR)/util/log.c
-CLIENT_SRC = $(SRC_DIR)/client/client.c $(SRC_DIR)/util/log.c
+UTIL_SRC = $(SRC_DIR)/util/log.c $(SRC_DIR)/util/openssl.c
+
+SERVER_SRC = $(SRC_DIR)/server/server.c $(UTIL_SRC)
+CLIENT_SRC = $(SRC_DIR)/client/client.c $(UTIL_SRC)
 
 $(shell mkdir -p $(BIN_DIR))
 
