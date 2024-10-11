@@ -48,8 +48,6 @@ This will generate two executable files: `server` and `client` in the `bin/` dir
 
 ## Usage
 
-### Server
-
 To start the server, run the following command:
 
 ```shell
@@ -58,8 +56,6 @@ To start the server, run the following command:
 
 Server will listen for connections on port `4433`.
 
-### Client
-
 To connect as a client, run the following command:
 
 ```shell
@@ -67,11 +63,7 @@ To connect as a client, run the following command:
 ./bin/client 127.0.0.1 # for example
 ```
 
-Replace `<server_address>` with the IP address or hostname of the server.
-
-After connecting, you can input messages to send to the server.
-
-Server will receive messages and print them to the console.
+Replace `<server_address>` with the IP address or hostname of the server. After connecting, you can input messages to send to the server.Server will receive messages and print them to the console.
 
 
 ## Security Considerations

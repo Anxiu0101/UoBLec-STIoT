@@ -14,26 +14,26 @@ int server_init(int port) {
     int server_fd;
     struct sockaddr_in server_addr;
 
-    // 创建服务器 socket
+    // Create server socket
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd < 0) {
         perror("Socket creation failed");
         return -1;
     }
 
-    // 设置服务器地址
+    // Set server address
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_port = htons(port);
 
-    // 绑定服务器 socket
+    // Bind server socket
     if (bind(server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         perror("Bind failed");
         close(server_fd);
         return -1;
     }
 
-    // 监听连接
+    // Listen for connections
     if (listen(server_fd, 1) < 0) {
         perror("Listen failed");
         close(server_fd);
@@ -47,11 +47,11 @@ void handle_client(SSL *ssl) {
     char buffer[1024] = {0};
     int bytes;
 
-    // 从客户端读取消息
+    // Read message from client
     bytes = SSL_read(ssl, buffer, sizeof(buffer));
     if (bytes > 0) {
         printf("Received: %s\n", buffer);
-        // 回复客户端
+        // Reply to client
         SSL_write(ssl, "Message received", strlen("Message received"));
     } else {
         printf("Failed to read message\n");
@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
     struct sockaddr_in client_addr;
     socklen_t client_len = sizeof(client_addr);
 
-    // 初始化 OpenSSL
+    // Initialize OpenSSL
     openssl_init();
 
     ctx = SSL_CTX_new(TLS_server_method());
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    // 加载服务器 ECC 证书和私钥
+    // Load server ECC certificate and private key
     if (SSL_CTX_use_certificate_file(ctx, "cert/server-cert.pem", SSL_FILETYPE_PEM) <= 0) {
         ERR_print_errors_fp(stderr);
         exit(EXIT_FAILURE);
@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    // 初始化服务器
+    // Initialize server
     server_fd = server_init(4433);
     if (server_fd < 0) {
         perror("Server initialization failed");
