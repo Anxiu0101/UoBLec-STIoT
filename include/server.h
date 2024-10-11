@@ -11,7 +11,4 @@ int server_init(int port);
 // Handle client connection
 void handle_client(SSL *ssl);
 
-// Release resources
-void cleanup(SSL_CTX *ctx);
-
 #endif

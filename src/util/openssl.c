@@ -12,3 +12,11 @@ void openssl_init() {
     OpenSSL_add_all_algorithms();
     SSL_load_error_strings();
 }
+
+// Cleanup OpenSSL
+// call SSL_CTX_free(ctx)
+// call EVP_cleanup()
+void cleanup(SSL_CTX *ctx) {
+    SSL_CTX_free(ctx);
+    EVP_cleanup();
+}

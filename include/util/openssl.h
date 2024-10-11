@@ -6,5 +6,7 @@
 
 // Initialize OpenSSL
 void openssl_init();
+// Cleanup OpenSSL
+void cleanup(SSL_CTX *ctx);
 
 #endif // OPENSSL_H

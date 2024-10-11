@@ -15,6 +15,9 @@
 // Log message
 void log_message(const char* source, const char* color, const char* format, ...);
 
+// Log error
+void log_error(const char* source, const char* message);
+
 #define log_server(format, ...) log_message("server", LOG_COLOR_GREEN, format, ##__VA_ARGS__)
 #define log_client(format, ...) log_message("client", LOG_COLOR_CYAN, format, ##__VA_ARGS__)
 
